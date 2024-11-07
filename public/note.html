@@ -12,9 +12,8 @@
     hx-trigger="load"
     hx-target="#content"
     class="sticky-note">
-    <div id="content"> class="content"</div>
+    <div id="content" class="content"> </div>
     </div>
-
     <script>
         const noteId = location.pathname.split('/').pop()
         document.querySelector('.sticky-note').setAttribute('hx-get',`/share/${noteId}`)

@@ -19,13 +19,12 @@ const salvarNotas = (content) => new Promise((resolve, reject) =>
                 resolve(this.lastID);  // Retorna o id gerado automaticamente
             })
     );
-    const listarNotas = () => new Promise((resolve, reject) => 
+    const listarNotas = (id) => new Promise((resolve, reject) => 
         db.get(`
-            SELECT * FROM notes WHERE id = ?
+            SELECT * FROM notes WHERE id = ?  -- Alterado para aceitar o parâmetro id
             `, [id], (err, row) => err ? reject(err) : resolve(row))
-            
-        )
-
+    );
+    
     const marcarNotaComoLida = (id) => new Promise((resolve, reject) =>
          db.run(`
              UPDATE notes SET opened_at = datetime('now', 'localtime') WHERE id = ?
