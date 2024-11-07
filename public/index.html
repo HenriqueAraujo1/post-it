@@ -4,21 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/htmx.org@2.0.3"></script>
     <title>Post-it!</title>
 </head>
 <body>
     <div class="sticky-note">
-        <div class="content" contenteditable="true"
-            conteúdo
+        <div
+        id="content" class="content" contenteditable="true"
+        oninput="document.getElementById('share-button').disabled = !this.textContent.trim()"
         ></div>
-        <button>Compartilhar</button>
+        <button 
+        disabled="true"
+        id="share-button"
+        hx-trigger="click"
+        hx-post="/note"
+        hx-target="#share-link"
+        hx-on:htmx:config-request="event.detail .parameters.content = content.innerHTML"
+        hx-on:htmx:after-request="{
+            document.getElementById('share-button').disabled = true
+            document.getElementById('content').innerHTML = ''
+        }">Compartilhar</button>
     </div>
     
-    <div id="share-link">
-        <p>Compartilhe sua nota através do link
-        <br>
-        <span>http://localhost:3000/note/adw</span>
-        </p>
-    </div>
+    <div id="share-link"></div>
 </body>
 </html>
