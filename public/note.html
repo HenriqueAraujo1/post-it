@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://unpkg.com/htmx.org@2.0.3"></script>
+    <title>Post-it Share</title>
+</head>
+<body>
+    <div 
+    hx-trigger="load"
+    hx-target="#content"
+    class="sticky-note">
+    <div id="content"> class="content"</div>
+    </div>
+
+    <script>
+        const noteId = location.pathname.split('/').pop()
+        document.querySelector('.sticky-note').setAttribute('hx-get',`/share/${noteId}`)
+    </script>
+</body>
+</html>
